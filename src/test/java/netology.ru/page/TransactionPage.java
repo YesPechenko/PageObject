@@ -11,7 +11,7 @@ public class TransactionPage {
     private final SelenideElement amountField = $("[data-test-id=amount] input");
     private final SelenideElement fromField = $("[data-test-id=from] input");
     private final SelenideElement transferButton = $("[data-test-id=action-transfer]");
-    private final SelenideElement error = $("[data-test-id = error-notification]");
+
 
     public  DashboardPage transactionCard (DataHelper.CardInfo CardInfo, int amount) {
         amountField.setValue(String.valueOf(amount));

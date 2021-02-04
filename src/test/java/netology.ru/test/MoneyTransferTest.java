@@ -2,8 +2,8 @@ package netology.ru.test;
 
 import lombok.val;
 import netology.ru.data.DataHelper;
-import netology.ru.page.LoginPage;
 import netology.ru.page.DashboardPage;
+import netology.ru.page.LoginPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,8 +32,8 @@ class MoneyTransferTest {
      val transactionPage = dashboardPage.pushSecondCard();
      val cardInfo = DataHelper.getFirstCardInfo();
      transactionPage.transactionCard(cardInfo, amount);
-     val balanceAfterTransactionFirstCard = getBalanceOfFirstCardAfterTransfer (balanceOfFirstCardBefore, amount);
-     val balanceAfterTransactionSecondCard = getBalanceOfSecondCardAfterTransfer(balanceOfSecondCardBefore, amount);
+     val balanceAfterTransactionFirstCard = getBalanceOfSecondCardAfterTransfer (balanceOfFirstCardBefore, amount);
+     val balanceAfterTransactionSecondCard = getBalanceOfFirstCardAfterTransfer(balanceOfSecondCardBefore, amount);
      val balanceOfFirstCardAfter = dashboardPage.getCardBalanceFirstCard();
      val balanceOfSecondCardAfter = dashboardPage.getCardBalanceSecondCard();
      assertEquals(balanceAfterTransactionFirstCard, balanceOfFirstCardAfter);
@@ -49,8 +49,8 @@ class MoneyTransferTest {
      val transactionPage = dashboardPage.pushSecondCard();
      val cardInfo = DataHelper.getSecondCardInfo();
      transactionPage.transactionCard(cardInfo, amount);
-     val balanceAfterTransferFirstCard = DataHelper.getBalanceOfFirstCardAfterTransfer (balanceOfFirstCardBefore, amount);
-     val balanceAfterTransferSecondCard = DataHelper.getBalanceOfSecondCardAfterTransfer(balanceOfSecondCardBefore, amount);
+     val balanceAfterTransferFirstCard = DataHelper.getBalanceOfSecondCardAfterTransfer(balanceOfFirstCardBefore, amount);
+     val balanceAfterTransferSecondCard = DataHelper.getBalanceOfFirstCardAfterTransfer(balanceOfSecondCardBefore, amount);
      val balanceOfFirstCardAfter = dashboardPage.getCardBalanceFirstCard();
      val balanceOfSecondCardAfter = dashboardPage.getCardBalanceSecondCard();;
      assertEquals(balanceAfterTransferFirstCard, balanceOfFirstCardAfter);
