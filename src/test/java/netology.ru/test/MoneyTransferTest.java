@@ -12,7 +12,7 @@ import static netology.ru.data.DataHelper.getBalanceOfFirstCardAfterTransfer;
 import static netology.ru.data.DataHelper.getBalanceOfSecondCardAfterTransfer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MoneyTransferTest {
+public class MoneyTransferTest {
 
   @BeforeEach
   void setUp () {
