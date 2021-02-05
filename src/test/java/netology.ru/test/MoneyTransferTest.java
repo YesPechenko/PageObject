@@ -32,8 +32,8 @@ public class MoneyTransferTest {
      val transactionPage = dashboardPage.pushSecondCard();
      val cardInfo = DataHelper.getFirstCardInfo();
      transactionPage.transactionCard(cardInfo, amount);
-     val balanceAfterTransactionFirstCard = getBalanceOfSecondCardAfterTransfer (balanceOfSecondCardBefore, amount);
-     val balanceAfterTransactionSecondCard = getBalanceOfFirstCardAfterTransfer(balanceOfFirstCardBefore, amount);
+     val balanceAfterTransactionFirstCard = getBalanceOfSecondCardAfterTransfer(balanceOfSecondCardBefore, amount);
+     val balanceAfterTransactionSecondCard = getBalanceOfFirstCardAfterTransfer (balanceOfFirstCardBefore, amount);
      val balanceOfFirstCardAfter = dashboardPage.getCardBalanceFirstCard();
      val balanceOfSecondCardAfter = dashboardPage.getCardBalanceSecondCard();
      assertEquals(balanceAfterTransactionFirstCard, balanceOfFirstCardAfter);
@@ -43,24 +43,41 @@ public class MoneyTransferTest {
    @Test
    void shouldTransactionFromSecondToFirst() {
      val dashboardPage = new DashboardPage();
-     val amount = 1000;
+     val amount = 800;
      val balanceOfFirstCardBefore = dashboardPage.getCardBalanceFirstCard();
      val balanceOfSecondCardBefore = dashboardPage.getCardBalanceSecondCard();
      val transactionPage = dashboardPage.pushSecondCard();
      val cardInfo = DataHelper.getSecondCardInfo();
      transactionPage.transactionCard(cardInfo, amount);
-     val balanceAfterTransferFirstCard = DataHelper.getBalanceOfSecondCardAfterTransfer(balanceOfSecondCardBefore, amount);
-     val balanceAfterTransferSecondCard = DataHelper.getBalanceOfFirstCardAfterTransfer(balanceOfFirstCardBefore, amount);
+     val balanceAfterTransferFirstCard = getBalanceOfSecondCardAfterTransfer(balanceOfSecondCardBefore, amount);
+     val balanceAfterTransferSecondCard = getBalanceOfFirstCardAfterTransfer (balanceOfFirstCardBefore, amount);
      val balanceOfFirstCardAfter = dashboardPage.getCardBalanceFirstCard();
      val balanceOfSecondCardAfter = dashboardPage.getCardBalanceSecondCard();;
      assertEquals(balanceAfterTransferFirstCard, balanceOfFirstCardAfter);
      assertEquals(balanceAfterTransferSecondCard, balanceOfSecondCardAfter);
   }
 
+  @Test
+  void shouldTransactionFromBalanceSecondCard() {
+    val dashboardPage = new DashboardPage();
+    val amount = dashboardPage.getCardBalanceSecondCard();
+    val balanceOfFirstCardBefore = dashboardPage.getCardBalanceFirstCard();
+    val balanceOfSecondCardBefore = dashboardPage.getCardBalanceSecondCard();
+    val transactionPage = dashboardPage.pushSecondCard();
+    val cardInfo = DataHelper.getSecondCardInfo();
+    transactionPage.transactionCard(cardInfo, amount);
+    val balanceAfterTransferFirstCard = getBalanceOfSecondCardAfterTransfer(balanceOfSecondCardBefore, amount);
+    val balanceAfterTransferSecondCard = getBalanceOfFirstCardAfterTransfer (balanceOfFirstCardBefore, amount);
+    val balanceOfFirstCardAfter = dashboardPage.getCardBalanceFirstCard();
+    val balanceOfSecondCardAfter = dashboardPage.getCardBalanceSecondCard();;
+    assertEquals(balanceAfterTransferFirstCard, balanceOfFirstCardAfter);
+    assertEquals(balanceAfterTransferSecondCard, balanceOfSecondCardAfter);
+  }
+
    @Test
    void shouldNotTransferMoreThanRestOfBalance() {
      val dashboardPage = new DashboardPage();
-     val amount = 10000;
+     val amount = 15000;
      val transactionPage = dashboardPage.pushFirstCard();
      val cardInfo = DataHelper.getSecondCardInfo();
      transactionPage.transactionCard(cardInfo, amount);
