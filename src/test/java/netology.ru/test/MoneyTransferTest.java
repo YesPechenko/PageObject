@@ -8,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
-import static netology.ru.data.DataHelper.getBalanceOfFirstCardAfterTransfer;
 import static netology.ru.data.DataHelper.getBalanceOfSecondCardAfterTransfer;
+import static netology.ru.data.DataHelper.getBalanceOfFirstCardAfterTransfer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MoneyTransferTest {
@@ -49,8 +49,8 @@ public class MoneyTransferTest {
      val transactionPage = dashboardPage.pushFirstCard();
      val cardInfo = DataHelper.getSecondCardInfo();
      transactionPage.transactionCard(cardInfo, amount);
-     val balanceAfterTransactionFirstCard = getBalanceOfFirstCardAfterTransfer(balanceOfFirstCardBefore, amount);
-     val balanceAfterTransactionSecondCard = getBalanceOfSecondCardAfterTransfer(balanceOfSecondCardBefore, amount);
+     val balanceAfterTransactionFirstCard = getBalanceOfSecondCardAfterTransfer(balanceOfFirstCardBefore, amount);
+     val balanceAfterTransactionSecondCard = getBalanceOfFirstCardAfterTransfer(balanceOfSecondCardBefore, amount);
      val balanceOfFirstCardAfter = dashboardPage.getCardBalanceFirstCard();
      val balanceOfSecondCardAfter = dashboardPage.getCardBalanceSecondCard();
      assertEquals(balanceAfterTransactionFirstCard, balanceOfFirstCardAfter);
@@ -58,31 +58,21 @@ public class MoneyTransferTest {
   }
 
   @Test
-  void shouldTransactionFromBalanceSecondCard() {
+  void shouldNotTransactionMoreThanRestOfBalance() {
     val dashboardPage = new DashboardPage();
-    val amount = dashboardPage.getCardBalanceSecondCard();
-    val balanceOfFirstCardBefore = dashboardPage.getCardBalanceFirstCard();
-    val balanceOfSecondCardBefore = dashboardPage.getCardBalanceSecondCard();
+    val amount = 10500;
     val transactionPage = dashboardPage.pushFirstCard();
     val cardInfo = DataHelper.getSecondCardInfo();
     transactionPage.transactionCard(cardInfo, amount);
-    val balanceAfterTransactionFirstCard = getBalanceOfSecondCardAfterTransfer (balanceOfSecondCardBefore, amount);
-    val balanceAfterTransactionSecondCard = getBalanceOfFirstCardAfterTransfer(balanceOfFirstCardBefore, amount);
-    val balanceOfFirstCardAfter = dashboardPage.getCardBalanceFirstCard();
-    val balanceOfSecondCardAfter = dashboardPage.getCardBalanceSecondCard();;
-    assertEquals(balanceAfterTransactionFirstCard, balanceOfFirstCardAfter);
-    assertEquals(balanceAfterTransactionSecondCard, balanceOfSecondCardAfter);
+    transactionPage.getNotification();
   }
 
-   @Test
-   void shouldNotTransactionMoreThanRestOfBalance() {
-     val dashboardPage = new DashboardPage();
-     val amount = 15000;
-     val transactionPage = dashboardPage.pushFirstCard();
-     val cardInfo = DataHelper.getSecondCardInfo();
-     transactionPage.transactionCard(cardInfo, amount);
-     transactionPage.getNotification();
-  }
+
+
+
+
+
+
 
 }
 

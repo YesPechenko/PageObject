@@ -40,7 +40,6 @@ public class DataHelper {
     return new CardInfo("5559000000000002", "10000");
   }
 
-
   public static int getBalanceOfFirstCardAfterTransfer(int balance, int amount) {
     int newBalance = balance - amount;
     return newBalance;

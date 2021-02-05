@@ -24,4 +24,5 @@ public class TransactionPage {
         $(withText("На балансе недостаточно средств")).shouldBe(Condition.visible);
     }
 
+
 }
